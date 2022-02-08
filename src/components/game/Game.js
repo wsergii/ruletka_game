@@ -1,4 +1,4 @@
-import React, {useRef, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import './Game.css'
 import img from './wheel5.png'
 import img2 from './arrow.png'
@@ -22,7 +22,7 @@ function Game() {
     const [disabled, setDisabled] = useState(true);
     const [balance, setBalance] = useState(10000);
 
-    const canvasRef = useRef()
+
 
     let wheel = new Image();
     let arrow = new Image();
@@ -31,7 +31,8 @@ function Game() {
 
     const draw = () => {
 
-        const ctx = document.querySelector('canvas').getContext('2d');
+        const ctx = document.querySelector("canvas").getContext("2d");
+
         ctx.clearRect(0,0,300,300); // clear canvas
         ctx.restore();
         ctx.save();
@@ -130,33 +131,27 @@ function Game() {
                     clearInterval(timer);
                     return;
                 }
-
             }, 10);
         }
+
         setTimeout(() => getColor(), 3000)
 
     }
 
     useEffect(() => {
-        draw()
+        requestAnimationFrame(draw)
      },[])
-
-    useEffect(() => {
-
-    }, [balance])
 
     return (
         <>
             <div className="koleso">
                 <canvas
                     className="canvas"
-                    ref={canvasRef}
                     width="300px"
                     height="300px"
                 />
                 <button
                     disabled={disabled}
-                    // disabled={state.disabled}
                     className="spin__button"
                     onClick={() => {
                         init(true)
