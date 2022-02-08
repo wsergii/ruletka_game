@@ -1,0 +1,23 @@
+.koleso {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    padding: 10px;
+}
+
+.canvas {
+    display: block;
+
+
+}
+
+.spin__button {
+    width: 100px;
+    height: 40px;
+    font-size: 1.1rem;
+    background-color: #3f3d62;
+    margin-top: 20px;
+    color: #d4d1e2;
+}

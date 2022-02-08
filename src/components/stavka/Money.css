@@ -1,0 +1,94 @@
+.form__stavka {
+    padding: 10px;
+    margin: 10px;
+}
+
+.form__button_up {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form__button {
+    justify-content: center;
+    height: 30px;
+    width: 100%;
+    text-align: center;
+    font-size: 1rem;
+    color: azure;
+}
+
+.form__input_box {
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+}
+
+.form__input {
+    display: flex;
+    flex-grow: 1;
+    text-align: center;
+    font-weight: bold;
+    color: #0c0c0d;
+    font-size: 1.5rem;
+    height: 30px;
+    padding: 0;
+    margin: 0;
+    border: none;
+}
+
+.form__button_blue {
+    background-color: #3f3d62;;
+}
+
+.form__button_gray {
+    background-color: #d4d1e2;
+    width: 30px;
+    border: none;
+    color: #3f3d62;
+    font-size: 1.2rem;
+}
+
+.form__button_gray:active {
+    color: red;
+    background-color: #007e2d;
+}
+
+.form__label {
+    display: flex;
+    justify-content: space-between;
+    color: white;
+}
+
+.form__button_colors {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form__button_red {
+    background-color: #ed1f1f;
+    width: 100px;
+    height: 40px;
+}
+
+.form__button_green {
+    background-color: #007e2d;
+    width: 100px;
+    height: 40px;
+}
+
+.form__button_black {
+    background-color: #0c0c0d;
+    width: 100px;
+    height: 40px;
+}
+
+.form__balance {
+    color: white;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
