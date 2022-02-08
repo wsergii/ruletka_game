@@ -71,7 +71,6 @@ function Money({updateData, money}) {
 
     }
 
-
     return (
         <div className="form__stavka">
             <div className="form__button_up">
