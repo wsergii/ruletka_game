@@ -35,8 +35,6 @@ function Money({updateData, money}) {
 
     const colors = ["red", "green", "black"]
 
-
-
     const clearInput = () => {
         return  dispatch({type: 'clear'});
     }
@@ -47,7 +45,7 @@ function Money({updateData, money}) {
             setRedLabel(state.stavka)
             setGreenLabel(0)
             setBlackLabel(0)
-            updateData(state.stavka, colors[0], false, money)
+            updateData(state.stavka, colors[0], false)
             clearInput()
             console.log("LABEL red: ", redLabel,"stavka: ", state.stavka, "color: ", colors[0])
             return
@@ -56,7 +54,7 @@ function Money({updateData, money}) {
             setGreenLabel(state.stavka)
             setRedLabel(0)
             setBlackLabel(0)
-            updateData(state.stavka, colors[1], false, money)
+            updateData(state.stavka, colors[1], false)
             clearInput()
             console.log("LABEL green: ", greenLabel,"stavka: ", state.stavka, "color: ", colors[1])
             return
@@ -65,7 +63,7 @@ function Money({updateData, money}) {
             setBlackLabel(state.stavka)
             setGreenLabel(0)
             setRedLabel(0)
-            updateData(state.stavka, colors[2], false, money)
+            updateData(state.stavka, colors[2], false)
             clearInput()
             console.log("LABEL black: ", blackLabel,"stavka: ", state.stavka, "color: ", colors[2])
             return

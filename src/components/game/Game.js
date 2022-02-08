@@ -14,18 +14,13 @@ function Game() {
         win: 0,
         totalMoney: 0,
         time: ""
-    }
+    };
 
-    const [history, setHistory] = useState(historyObj)
-
-    const [state, setState] = useState({
-        stavka: 0,
-        color:"",
-        disabled: true,
-        balances: 777
-    })
-
-    const [balance, setBalance] = useState(10000)
+    const [history, setHistory] = useState(historyObj);
+    const [stavka, setStavka] = useState(0);
+    const [color, setColor] = useState('');
+    const [disabled, setDisabled] = useState(true);
+    const [balance, setBalance] = useState(10000);
 
     const canvasRef = useRef()
 
@@ -80,63 +75,47 @@ function Game() {
         }
     }
 
-    const updateHistory = (stavka, res, win, totalMoney) => {
+    const updateHistory = (stavka, resColor, win, newBalances) => {
         let date = new Date().toLocaleString()
-        setHistory({...history,
+        setHistory({
             id: Math.round(Date.now() * Math.PI / Math.random() / 100000),
-            stavka: state.stavka,
-            color: res,
+            stavka: stavka,
+            color: resColor,
             win: win,
-            totalMoney: totalMoney,
+            totalMoney: newBalances,
             time: date
         })
     }
 
-    const updateData = (stavka, color, disabled, bal) => {
-        setState({
-            stavka: stavka,
-            color: color,
-            disabled: disabled,
-            balances: bal
-        })
+    const updateData = (stavka, color, disabled) => {
+        setStavka(stavka)
+        setColor(color)
+        setDisabled(disabled)
     }
 
-    const result = (res) => {
 
-        console.log("Цвет кнопки:",state.color, "Ставка:",state.stavka, "Призовой цвет:",res)
+    const result = (resColor) => {
 
-        if (state.color === res) {
-            if (state.color === 'green') {
+        console.log("Цвет кнопки:",color, "Ставка:",stavka, "Призовой цвет:",resColor)
+        let resStavka;
+        let newBalances;
 
-                setBalance((prevCount) => {
-                    return prevCount + state.stavka * 10
-                })
-                console.log("Bal1:", balance)
-
-                updateHistory(state.stavka, res, state.stavka * 10, balance)
-                console.log("Вы выиграли: ", state.stavka * 10, "Balance: ", balance)
+        if (color === resColor) {
+            if (color === 'green') {
+                resStavka = stavka * 10
+                newBalances = balance + resStavka
             } else {
-                setBalance((prevCount) => {
-                    return prevCount + state.stavka * 2
-                })
-                console.log("Bal1:", balance)
-
-                updateHistory(state.stavka, res, state.stavka * 2, balance)
-                console.log("Вы выиграли: ", state.stavka * 2, "Balance: ", balance)
+                resStavka = stavka * 2
+                newBalances = balance + resStavka
             }
         } else {
-
-            setBalance((prevCount) => {
-                return prevCount - state.stavka
-            })
-
-            console.log("Bal1:", balance)
-
-            updateHistory(state.stavka, res, 0, balance)
-            console.log("Вы не выиграли: ","Balance: ", balance)
-
+                resStavka = 0
+                newBalances = balance - stavka
         }
-        setState({...state, disabled: true})
+        setDisabled(true)
+        setBalance(newBalances)
+        updateHistory(stavka, resColor, resStavka, newBalances)
+
     }
 
     const init = (ready) => {
@@ -158,10 +137,13 @@ function Game() {
 
     }
 
-
     useEffect(() => {
         draw()
      },[])
+
+    useEffect(() => {
+
+    }, [balance])
 
     return (
         <>
@@ -173,7 +155,8 @@ function Game() {
                     height="300px"
                 />
                 <button
-                    disabled={state.disabled}
+                    disabled={disabled}
+                    // disabled={state.disabled}
                     className="spin__button"
                     onClick={() => {
                         init(true)
@@ -181,7 +164,7 @@ function Game() {
                 >Крути
                 </button>
             </div>
-            <Money money={balance} updateData={updateData}/>
+            <Money money={balance} updateData={updateData} />
             <Storage history={history}/>
         </>
     )
