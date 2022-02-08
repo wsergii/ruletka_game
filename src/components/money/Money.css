@@ -84,6 +84,11 @@
 
 .form__balance {
     color: white;
+    font-size: 1.3rem;
+}
+.form__alert {
+    color: red;
+    font-weight: 1.3rem;
 }
 
 input[type=number]::-webkit-inner-spin-button,

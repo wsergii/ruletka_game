@@ -32,6 +32,7 @@ function Money({updateData, money}) {
     const [greenLabel, setGreenLabel] = useState(0);
     const [blackLabel, setBlackLabel] = useState(0);
     const [state, dispatch] = useReducer(reducer, initialState)
+    const [info, setInfo] = useState(false);
 
     const colors = ["red", "green", "black"]
 
@@ -41,34 +42,40 @@ function Money({updateData, money}) {
 
     const pressButton = (color) => {
 
-        if (color === colors[0]) {
-            setRedLabel(state.stavka)
-            setGreenLabel(0)
-            setBlackLabel(0)
-            updateData(state.stavka, colors[0], false)
-            clearInput()
-            console.log("LABEL red: ", redLabel,"stavka: ", state.stavka, "color: ", colors[0])
-            return
+        if (state.stavka > money) {
+            setInfo(true)
+        } else {
+            if (color === colors[0]) {
+                setRedLabel(state.stavka)
+                setGreenLabel(0)
+                setBlackLabel(0)
+                setInfo(false)
+                updateData(state.stavka, colors[0], false)
+                clearInput()
+                console.log("LABEL red: ", redLabel, "money: ", state.stavka, "color: ", colors[0])
+                return
+            }
+            if (color === colors[1]) {
+                setGreenLabel(state.stavka)
+                setRedLabel(0)
+                setBlackLabel(0)
+                setInfo(false)
+                updateData(state.stavka, colors[1], false)
+                clearInput()
+                console.log("LABEL green: ", greenLabel, "money: ", state.stavka, "color: ", colors[1])
+                return
+            }
+            if (color === colors[2]) {
+                setBlackLabel(state.stavka)
+                setGreenLabel(0)
+                setRedLabel(0)
+                setInfo(false)
+                updateData(state.stavka, colors[2], false)
+                clearInput()
+                console.log("LABEL black: ", blackLabel, "money: ", state.stavka, "color: ", colors[2])
+                return
+            }
         }
-        if (color === colors[1]) {
-            setGreenLabel(state.stavka)
-            setRedLabel(0)
-            setBlackLabel(0)
-            updateData(state.stavka, colors[1], false)
-            clearInput()
-            console.log("LABEL green: ", greenLabel,"stavka: ", state.stavka, "color: ", colors[1])
-            return
-        }
-        if (color === colors[2]) {
-            setBlackLabel(state.stavka)
-            setGreenLabel(0)
-            setRedLabel(0)
-            updateData(state.stavka, colors[2], false)
-            clearInput()
-            console.log("LABEL black: ", blackLabel,"stavka: ", state.stavka, "color: ", colors[2])
-            return
-        }
-
     }
 
     return (
@@ -133,8 +140,13 @@ function Money({updateData, money}) {
                     {blackLabel}  X 2
                 </Button>
             </div>
+
             <div className="form__balance">
                 <p><b>Баланс: {money}</b></p>
+            </div>
+
+            <div className="form__alert">
+                <p><b>{info ? "Уменьшите ставку!" : ""}</b></p>
             </div>
 
         </div>

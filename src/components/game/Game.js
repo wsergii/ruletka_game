@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import './Game.css'
 import img from './wheel5.png'
 import img2 from './arrow.png'
-import Money from "../stavka/Money";
+import Money from "../money/Money";
 import Storage from "../storage/Storage";
 
 function Game() {
@@ -21,8 +21,6 @@ function Game() {
     const [color, setColor] = useState('');
     const [disabled, setDisabled] = useState(true);
     const [balance, setBalance] = useState(10000);
-
-
 
     let wheel = new Image();
     let arrow = new Image();
@@ -94,29 +92,35 @@ function Game() {
         setDisabled(disabled)
     }
 
-
     const result = (resColor) => {
 
         console.log("Цвет кнопки:",color, "Ставка:",stavka, "Призовой цвет:",resColor)
+
         let resStavka;
         let newBalances;
+        let finish;
 
-        if (color === resColor) {
-            if (color === 'green') {
-                resStavka = stavka * 10
-                newBalances = balance + resStavka
+        finish = balance - stavka
+
+        if (finish > 0) {
+            if (color === resColor) {
+                if (color === 'green') {
+                    resStavka = stavka * 10
+                    newBalances = balance + resStavka
+                } else {
+                    resStavka = stavka * 2
+                    newBalances = balance + resStavka
+                }
             } else {
-                resStavka = stavka * 2
-                newBalances = balance + resStavka
-            }
-        } else {
                 resStavka = 0
                 newBalances = balance - stavka
+            }
+            setDisabled(true)
+            setBalance(newBalances)
+            updateHistory(stavka, resColor, resStavka, newBalances)
+        } else {
+            alert("У Вас недостаточно средств для продолжения")
         }
-        setDisabled(true)
-        setBalance(newBalances)
-        updateHistory(stavka, resColor, resStavka, newBalances)
-
     }
 
     const init = (ready) => {
