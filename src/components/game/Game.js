@@ -102,7 +102,7 @@ function Game() {
 
         finish = balance - stavka
 
-        if (finish > 0) {
+        if (finish >= 0) {
             if (color === resColor) {
                 if (color === 'green') {
                     resStavka = stavka * 10
